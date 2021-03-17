@@ -14,6 +14,7 @@ const Landing = ({ movieListWithSearchKey }) => {
       .filter((wordRef) => wordRef !== '');
     const filteredMovieListElementsCompare = movieListWithSearchKey.filter(
       (checkMovie) =>
+        checkMovie.searchReference.includes(searchText) ||
         isArrayAInArrayB(splitSearchText, checkMovie.searchRefTitleGenre),
     );
     setMovies(filteredMovieListElementsCompare);
