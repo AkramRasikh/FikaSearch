@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, ScrollView } from 'react-native';
+import isArrayAInArrayB from '../../utils/isArrayAInArrayB';
 import SearchInput from './SearchInput';
 import SearchMovieContainer from './SearchMovieContainer';
 
@@ -8,10 +9,14 @@ const Landing = ({ movieListWithSearchKey }) => {
   const [movies, setMovies] = useState(movieListWithSearchKey);
 
   useEffect(() => {
-    const filteredMovieList = movieListWithSearchKey.filter((checkMovie) =>
-      checkMovie.searchReference.includes(searchText),
+    const splitSearchText = searchText
+      .split(' ')
+      .filter((wordRef) => wordRef !== '');
+    const filteredMovieListElementsCompare = movieListWithSearchKey.filter(
+      (checkMovie) =>
+        isArrayAInArrayB(splitSearchText, checkMovie.searchRefTitleGenre),
     );
-    setMovies(filteredMovieList);
+    setMovies(filteredMovieListElementsCompare);
   }, [searchText]);
 
   return (

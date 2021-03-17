@@ -29,6 +29,7 @@ const App = () => {
         genres,
         searchReference,
         searchRefTitleGenre: searchReference.split(' '),
+        squashedRef: searchReference.split(' ').join(''),
       };
     });
 
