@@ -19,8 +19,8 @@ const App = () => {
       return { ...obj, ...keyObj };
     }, {});
 
-  const mapMovieData = (realMovieAPI, genreKey) =>
-    realMovieAPI.map((oneMovie) => {
+  const mapMovieData = (movieAPIData, genreKey) =>
+    movieAPIData.map((oneMovie) => {
       const genres = oneMovie.genre_ids.map((genreId) => genreKey[genreId]);
       const searchReference = oneMovie.title + ' ' + genres.join(' ');
       return {
@@ -29,7 +29,6 @@ const App = () => {
         genres,
         searchReference,
         searchRefTitleGenre: searchReference.split(' '),
-        squashedRef: searchReference.split(' ').join(''),
       };
     });
 
@@ -40,21 +39,24 @@ const App = () => {
         movieDataAPISecond(),
         movieGenreAPI(),
       ]);
-      const realMovieAPI = [...movieDataOne, ...movieDataTwo];
+      const movieAPIData = [...movieDataOne, ...movieDataTwo];
       const genreKey = flattenGenreData(movieGenreData);
-      const movieDataMapped = mapMovieData(realMovieAPI, genreKey);
+      const movieDataMapped = mapMovieData(movieAPIData, genreKey);
       setMovieList(movieDataMapped);
-      setIsLoading(false);
     }
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (!!movieList.length) setIsLoading(false);
+  }, [movieList]);
+
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator />
+        <ActivityIndicator size='large' color='#00ff00' />
       ) : (
-        <Search movieListWithSearchKey={movieList} />
+        <Search movieList={movieList} />
       )}
     </View>
   );

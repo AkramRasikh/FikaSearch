@@ -1,27 +1,18 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image } from 'react-native';
+import SearchMovieGenreInfo from './SearchMovieGenreInfo';
 
 const SearchMovieInfoContainer = ({ title, genres, img, index }) => (
-  <View key={index} style={{ display: 'flex' }}>
-    <Text>{title}</Text>
+  <View key={index} style={{ flex: 1, flexDirection: 'row', marginBottom: 10 }}>
+    <Image
+      source={{ uri: img }}
+      style={{ width: 40, height: 40, marginRight: 10 }}
+    />
     <View>
-      <Text>Genres: </Text>
-      {genres.map((genreID, genreIndex) => (
-        <Text key={genreIndex}>{genreID} </Text>
-      ))}
-    </View>
-    <View>
-      <Image source={{ uri: img }} style={{ width: 40, height: 40 }} />
+      <Text>{title}</Text>
+      {genres && <SearchMovieGenreInfo genres={genres} />}
     </View>
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    margin: 20,
-  },
-});
 
 export default SearchMovieInfoContainer;

@@ -1,13 +1,9 @@
 import React from 'react';
 import { StyleSheet, TextInput, SafeAreaView } from 'react-native';
 
-const SearchInput = ({ onSearchText, searchText }) => (
+const TextInputComponent = ({ onChangeText, text }) => (
   <SafeAreaView>
-    <TextInput
-      style={styles.input}
-      onChangeText={onSearchText}
-      value={searchText}
-    />
+    <TextInput style={styles.input} onChangeText={onChangeText} value={text} />
   </SafeAreaView>
 );
 
@@ -19,4 +15,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchInput;
+export default TextInputComponent;
